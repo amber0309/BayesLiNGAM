@@ -15,6 +15,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression
 from scipy.stats import norm
 from scipy.optimize import minimize
+from copy import deepcopy
 
 import sys
 sys.path.insert(1, './accessories') # add the path of the auxiliary functions
@@ -37,8 +38,10 @@ class BayesLiNGAM(object):
 				'b': [0.0, 1.0] }
 
 		if B is not None: # when the true dag is given, store its index in self.gtidx
+			B_sklt = deepcopy(B)
+			B_sklt[ B_sklt != 0 ] = 1
 			for d in range(self.ndags):
-				if np.array_equal(B, self.dags[d]):
+				if np.array_equal(B_sklt, self.dags[d]):
 					self.gtidx = d
 					break
 		if verbose == 1:
