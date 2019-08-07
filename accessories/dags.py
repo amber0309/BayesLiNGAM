@@ -105,11 +105,8 @@ def alldags(V):
 
 			# set connection matrix
 			Bmat = np.zeros( (V,V), dtype = int )
-			cnt = 0
-			for col in range(V):
-				for row in range(col+1, V):
-					Bmat[row, col] = binvec[cnt]
-					cnt += 1
+			ridx, cidx = np.tril_indices( n=V, k=-1, m=V )
+			Bmat[ridx, cidx] = binvec
 
 			ip = iperm(P[i,:])
 			Bmat = Bmat[:, ip]
@@ -131,10 +128,3 @@ def alldags(V):
 			Dindex += 1
 
 	return all_dags
-
-
-if __name__ == '__main__':
-	# alldags_new(3)
-	# allperm(3)
-	V = 4
-	print len(alldags_new(3))
