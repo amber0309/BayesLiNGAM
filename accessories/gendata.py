@@ -2,7 +2,7 @@ from sklearn.preprocessing import StandardScaler
 from copy import deepcopy
 import numpy as np
 
-def gen_data_given_model(b, s, c, n_samples=2000, random_state=0):
+def gen_data_given_model(b, s, c, n_samples=1000, random_state=4):
 	"""Generate artificial data based on the given model.
 
 	Parameters
@@ -17,10 +17,10 @@ def gen_data_given_model(b, s, c, n_samples=2000, random_state=0):
 
 	Returns
 	-------
-	xs, b_, c_ : Tuple
+	xs, b_, : Tuple
 		`xs` is observation matrix, where `xs.shape==(n_samples, n_features)`. 
 		`b_` is permuted coefficient matrix. Note that rows of `b_` correspond
-		to columns of `xs`. `c_` if permuted mean vectors. 
+		to columns of `xs`.
 
 	"""
 	rng = np.random.RandomState(random_state)
@@ -48,23 +48,18 @@ def gen_data_given_model(b, s, c, n_samples=2000, random_state=0):
 	xs = np.zeros((n_samples, n_vars))
 	for i in range(n_vars):
 		# NOTE: columns of xs and ss correspond to rows of b
-		xs[:, i] = ss[:, i] + ss.dot(b[i, :]) + c[i]
-		# print xs
+		xs[:, i] = ss[:, i] + xs.dot(b[i, :]) + c[i]
 
-	# print ss
-	# print xs
 	# Permute variables
-	# p = rng.permutation(n_vars)
-	# xs[:, :] = xs[:, p]
-	# b_ = deepcopy(b)
-	# c_ = deepcopy(c)
-	# b_[:, :] = b_[p, :]
-	# b_[:, :] = b_[:, p]
-	# c_[:] = c[p]
+	p = rng.permutation(n_vars)
+	xs[:, :] = xs[:, p]
+	b_ = deepcopy(b)
+	c_ = deepcopy(c)
+	b_[:, :] = b_[p, :]
+	b_[:, :] = b_[:, p]
+	c_[:] = c[p]
 
-	# return xs, b_, c_
-
-	return xs
+	return xs, b_
 
 def gen_GCM_2vars(flags):
 
@@ -73,9 +68,7 @@ def gen_GCM_2vars(flags):
 	if flags[0] == '2_0':
 		b = np.array([[0.0, 0.0], [0.0, 0.0]])
 	# --- one edge
-	elif flags[0] == '2_1_1':
-		b = np.array([[0.0, 1.0], [0.0, 0.0]])
-	elif flags[0] == '2_1_2':
+	elif flags[0] == '2_1':
 		b = np.array([[0.0, 0.0], [1.0, 0.0]])
 	else:
 		b = np.array([[0.0, 0.0], [0.0, 0.0]])
@@ -96,10 +89,9 @@ def gen_GCM_2vars(flags):
 	else:
 		c = np.array([0.0, 0.0])
 
-	# xs, b_, c_ = gen_data_given_model(b, s, c)
-	xs = gen_data_given_model(b, s, c)
+	xs, b_ = gen_data_given_model(b, s, c)
 
-	return xs, b
+	return xs, b_
 
 
 def gen_GCM_3vars(flags):
@@ -145,57 +137,6 @@ def gen_GCM_3vars(flags):
 		c = np.array([0.0, 0.0, 0.0])
 
 	# xs, b_, c_ = gen_data_given_model(b, s, c)
-	xs = gen_data_given_model(b, s, c)
+	xs, b_ = gen_data_given_model(b, s, c)
 
-	return xs, b
-
-def gen_syn_2(s1, s2):
-	X1, b1 = gen_GCM([s1, 1, 1])
-	scaler1 = StandardScaler(with_std=False)
-	scaler1.fit(X1)
-	data1 = scaler1.transform(X1)
-
-	X2, b2 = gen_GCM([s2, 3, 1])
-	scaler2 = StandardScaler(with_std=False)
-	scaler2.fit(X2)
-	data2 = scaler2.transform(X2)
-
-	data = np.concatenate( (data1, data2) )
-	label_true = np.array( [1]*X1.shape[0] + [2]*X2.shape[0]  )
-	# print label_true.shape
-	dag1 = deepcopy(b1)
-	dag2 = deepcopy(b2)
-
-	dag1[ dag1 != 0 ] = 1
-	dag2[ dag2 != 0 ] = 1
-
-	return data, [dag1, dag2], label_true
-
-def gen_syn_3(s1, s2, s3):
-	X1, b1 = gen_GCM([s1, 3, 1])
-	scaler1 = StandardScaler(with_std=False)
-	scaler1.fit(X1)
-	data1 = scaler1.transform(X1)
-
-	X2, b2 = gen_GCM([s2, 2, 1])
-	scaler2 = StandardScaler(with_std=False)
-	scaler2.fit(X2)
-	data2 = scaler2.transform(X2)
-
-	X3, b3 = gen_GCM([s3, 4, 1])
-	scaler3 = StandardScaler(with_std=False)
-	scaler3.fit(X3)
-	data3 = scaler3.transform(X3)
-
-	data = np.concatenate( (data1, data2, data3) )
-	label_true = np.array( [1]*X1.shape[0] + [2]*X2.shape[0] + [3]*X3.shape[0] )
-	# print label_true.shape
-	dag1 = deepcopy(b1)
-	dag2 = deepcopy(b2)
-	dag3 = deepcopy(b3)
-
-	dag1[ dag1 != 0 ] = 1
-	dag2[ dag2 != 0 ] = 1
-	dag3[ dag3 != 0 ] = 1
-
-	return data, [dag1, dag2, dag3], label_true
+	return xs, b_
