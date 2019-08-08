@@ -1,5 +1,5 @@
 import numpy as np
-from itertools import combinations, permutations
+from itertools import permutations
 from scipy.misc import comb
 
 import sys
