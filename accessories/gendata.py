@@ -61,82 +61,19 @@ def gen_data_given_model(b, s, c, n_samples=1000, random_state=4):
 
 	return xs, b_
 
-def gen_GCM_2vars(flags):
+def gen_GCM(n_vars, n_edges, stds=0, biases=0):
 
-	# two variables
-	# --- no edge
-	if flags[0] == '2_0':
-		b = np.array([[0.0, 0.0], [0.0, 0.0]])
-	# --- one edge
-	elif flags[0] == '2_1':
-		b = np.array([[0.0, 0.0], [1.0, 0.0]])
-	else:
-		b = np.array([[0.0, 0.0], [0.0, 0.0]])
+	B = np.zeros( (n_vars, n_vars), dtype=float )
+	max_nedge = n_vars*(n_vars-1)/2
 
-	if flags[1] == 1:
-		s = np.array([0.25, 0.25])
-	elif flags[1] == 2:
-		s = np.array([0.5, 0.5])
-	elif flags[1] == 3:
-		s = np.array([1.0, 1.0])
-	elif flags[1] == 4:
-		s = np.array([1.5, 1.5])
-	else:
-		s = np.array([1.0, 1.0])
+	trilB_vec = np.array([0] * (max_nedge - n_edges) + [1] * n_edges)
+	np.random.shuffle( trilB_vec )
+	ridx, cidx = np.tril_indices( n=n_vars, k=-1, m=n_vars )
+	B[ridx, cidx] = trilB_vec
 
-	if flags[2] == 1:
-		c = np.array([5.0, 6.0])
-	else:
-		c = np.array([0.0, 0.0])
+	stds_vec = np.ones( (n_vars,), dtype=float ) * stds
+	bias_vec = np.ones( (n_vars,), dtype=float ) * biases
 
-	xs, b_ = gen_data_given_model(b, s, c)
-
-	return xs, b_
-
-
-def gen_GCM_3vars(flags):
-
-	# three variables
-	# --- no edge
-	if flags[0] == '3_0':
-		b = np.array([[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]])
-	# --- one edge
-	elif flags[0] == '3_1_1':
-		b = np.array([[0.0, 0.0, 0.0], [3.0, 0.0, 0.0], [0.0, 0.0, 0.0]])
-	elif flags[0] == '3_1_2':
-		b = np.array([[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 3.0, 0.0]])
-	elif flags[0] == '3_1_3':
-		b = np.array([[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [3.0, 0.0, 0.0]])
-	# --- two edges
-	elif flags[0] == '3_2_1':
-		b = np.array([[0.0, 0.0, 0.0], [2.0, 0.0, 0.0], [0.0, 2.0, 0.0]])
-	elif flags[0] == '3_2_2':
-		b = np.array([[0.0, 0.0, 0.0], [2.0, 0.0, 0.0], [2.0, 0.0, 0.0]])
-	elif flags[0] == '3_2_3':
-		b = np.array([[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [2.0, 2.0, 0.0]])
-	# --- three edges
-	elif flags[0] == '3_3_1':
-		b = np.array([[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [1.0, 1.0, 0.0]])
-	else:
-		b = np.array([[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]])
-
-	if flags[1] == 1:
-		s = np.array([0.25, 0.25, 0.25])
-	elif flags[1] == 2:
-		s = np.array([0.5, 0.5, 0.5])
-	elif flags[1] == 3:
-		s = np.array([1.0, 1.0, 1.0])
-	elif flags[1] == 4:
-		s = np.array([1.5, 1.5, 1.5])
-	else:
-		s = np.array([1.0, 1.0, 1.0])
-
-	if flags[2] == 1:
-		c = np.array([5.0, 6.0, 7.0])
-	else:
-		c = np.array([0.0, 0.0, 0.0])
-
-	# xs, b_, c_ = gen_data_given_model(b, s, c)
-	xs, b_ = gen_data_given_model(b, s, c)
+	xs, b_ = gen_data_given_model(B, stds_vec, bias_vec)
 
 	return xs, b_
