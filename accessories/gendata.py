@@ -59,12 +59,16 @@ def gen_data_given_model(b, s, c, n_samples=1000, random_state=4):
 	b_[:, :] = b_[:, p]
 	c_[:] = c[p]
 
-	return xs, b_
+	b_skeleton = deepcopy(b_)
+	b_skeleton[ b_skeleton != 0 ] = 1
+	b_skeleton = b_skeleton.astype(int)
 
-def gen_GCM(n_vars, n_edges, stds=0, biases=0):
+	return xs, b_skeleton
+
+def gen_GCM(n_vars, n_edges, stds=1, biases=0):
 
 	B = np.zeros( (n_vars, n_vars), dtype=float )
-	max_nedge = n_vars*(n_vars-1)/2
+	max_nedge = n_vars*(n_vars-1)//2
 
 	trilB_vec = np.array([0] * (max_nedge - n_edges) + [1] * n_edges)
 	np.random.shuffle( trilB_vec )
@@ -74,6 +78,6 @@ def gen_GCM(n_vars, n_edges, stds=0, biases=0):
 	stds_vec = np.ones( (n_vars,), dtype=float ) * stds
 	bias_vec = np.ones( (n_vars,), dtype=float ) * biases
 
-	xs, b_ = gen_data_given_model(B, stds_vec, bias_vec)
+	X_, B_ = gen_data_given_model(B, stds_vec, bias_vec)
 
-	return xs, b_
+	return X_, B_

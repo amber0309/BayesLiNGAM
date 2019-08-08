@@ -19,7 +19,6 @@ from copy import deepcopy
 
 import sys
 sys.path.insert(1, './accessories') # add the path of the auxiliary functions
-from gendata import gen_GCM_2vars, gen_GCM_3vars
 from dags import allfamilies, alldags
 import util
 

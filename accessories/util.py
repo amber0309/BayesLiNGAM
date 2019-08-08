@@ -20,7 +20,7 @@ def colProduct(M1, M2 = None):
 	
 	if M2 is None:
 		nrow, ncol = M1.shape
-		R = np.zeros( (nrow, ncol*(ncol+1)/2), dtype=float )
+		R = np.zeros( (nrow, ncol*(ncol+1)//2), dtype=float )
 		k = 0
 		for i in range(ncol):
 			for j in range(i,ncol):
@@ -36,6 +36,3 @@ def colProduct(M1, M2 = None):
 				R[:,k] = M1[:,i] * M2[:,j]
 				k += 1
 	return R
-
-if __name__ == '__main__':
-	print dec_to_bin(2,4)

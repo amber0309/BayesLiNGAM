@@ -83,7 +83,7 @@ def alldags(V):
 
 	ndags = ap(V)
 	Dindex = 0
-	nallpairs = V*(V-1)/2 
+	nallpairs = V*(V-1)//2 
 
 	D = np.zeros( (ndags, V+nallpairs), dtype = int )
 	B = np.zeros( (ndags, V*V), dtype = int)
