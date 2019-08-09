@@ -4,24 +4,18 @@ import numpy as np
 def gen_data_given_model(b, s, c, n_samples=1000, random_state=4):
 	"""Generate artificial data based on the given model.
 
-	Parameters
-	----------
-	b : numpy.ndarray, shape=(n_features, n_features)
-		Strictly lower triangular coefficient matrix. 
-		NOTE: Each row of `b` corresponds to each variable, i.e., X = BX. 
-	s : numpy.ndarray, shape=(n_features,)
-		Scales of disturbance variables.
-	c : numpy.ndarray, shape=(n_features,)
-		Means of observed variables. 
+	INPUT
+	  b 			 Strictly lower triangular coefficient matrix, (n_vars, n_vars) numpy array
+					 NOTE: Each row of `b` corresponds to each variable, i.e., X = BX.
+	  s 			 Scales of disturbance variables, (n_vars, ) numpy array
+	  c 			 Means of observed variables, (n_vars,) numpy array
 
-	Returns
-	-------
-	xs, b_, : Tuple
-		`xs` is observation matrix, where `xs.shape==(n_samples, n_features)`. 
-		`b_` is permuted coefficient matrix. Note that rows of `b_` correspond
-		to columns of `xs`.
-
+	OUTPUT
+	  xs 			 matrix containing all observations, (n_samples, n_vars) numpy array
+	  b_skeleton 	 permuted graph skeleton, (n_vars, n_vars) numpy array
+					 NOTE: 1 and 0 denotes the existence and non-existence of an edge, respectively
 	"""
+
 	rng = np.random.RandomState(random_state)
 	n_vars = b.shape[0]
 

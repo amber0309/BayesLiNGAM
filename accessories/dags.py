@@ -1,9 +1,6 @@
 import numpy as np
 from itertools import permutations
 from scipy.misc import comb
-
-import sys
-sys.path.insert(1, '../accessories') # add the path of the auxiliary functions
 import util
 
 def all_bin_vecs(arr, v):
@@ -14,7 +11,7 @@ def all_bin_vecs(arr, v):
 	arr 		 positive integers from 1 to 2^V, (2^V, ) numpy array
 	v 			 number of variables V
 	OUTPUT
-	edgeconfs 	 all binary vectors, (2^V, V) numpy array
+	edgeconfs 	 all possible binary vectors, (2^V, V) numpy array
 	"""
 	to_str_func = np.vectorize(lambda x: np.binary_repr(x).zfill(v))
 	strs = to_str_func(arr)

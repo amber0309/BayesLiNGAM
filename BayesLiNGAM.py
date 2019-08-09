@@ -17,10 +17,8 @@ from scipy.stats import norm
 from scipy.optimize import minimize
 from copy import deepcopy
 
-import sys
-sys.path.insert(1, './accessories') # add the path of the auxiliary functions
-from dags import allfamilies, alldags
-import util
+from accessories.dags import allfamilies, alldags
+from accessories import util
 
 class BayesLiNGAM(object):
 	def __init__(self, data, B=None, verbose=0):

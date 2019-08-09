@@ -1,16 +1,14 @@
-import sys
 import numpy as np
-
 from BayesLiNGAM import BayesLiNGAM
-sys.path.insert(1, './accessories') # add the path of the auxiliary functions
-from gendata import gen_GCM
+from accessories.gendata import gen_GCM
 
 def demo():
-	X, B = gen_GCM(2, 1)
+	X, B = gen_GCM(2, 1) # generate synthetic data, 2 variables, 1 edge
 
 	mdl = BayesLiNGAM(X, B)
 	mdl.inference()
 	if np.sum(np.isnan(mdl.prob)) == mdl.ndags:
+		# all dag scores are infinite
 		print('No valid DAG score! The results may be inaccurate!')
 		return False
 
