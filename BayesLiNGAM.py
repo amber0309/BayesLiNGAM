@@ -278,11 +278,13 @@ class BayesLiNGAM(object):
 		if np.sum(np.isnan(self.prob)) == self.ndags:
 			# all dag scores are infinite
 			print('No valid DAG score! The results may be inaccurate!')
+			self.success = False
 			return False
 
-		print('The estimated skeleton is')
+		print('The estimated graph structure is:')
 		print(self.dags[ np.argmax(self.prob) ])
 		self.B_est = self.dags[ np.argmax(self.prob) ]
+		self.success = True
 		return True
 
 def loglikelihood2sufficient(params, sr, sr2, N):

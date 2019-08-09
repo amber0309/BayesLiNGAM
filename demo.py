@@ -8,8 +8,8 @@ def demo():
 	mdl = BayesLiNGAM(X, B)
 	mdl.inference()
 
-	print('The true skeleton is')
-	print(mdl.dags[ np.argmax(mdl.prob) ])
+	print('The true graph structure is:')
+	print(B)
 
 if __name__ == '__main__':
 	demo()

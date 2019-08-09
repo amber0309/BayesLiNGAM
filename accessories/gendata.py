@@ -5,14 +5,14 @@ def gen_data_given_model(b, s, c, n_samples=1000, random_state=4):
 	"""Generate artificial data based on the given model.
 
 	INPUT
-	  b 			 Strictly lower triangular coefficient matrix, (n_vars, n_vars) numpy array
-					 NOTE: Each row of `b` corresponds to each variable, i.e., X = BX.
-	  s 			 Scales of disturbance variables, (n_vars, ) numpy array
-	  c 			 Means of observed variables, (n_vars,) numpy array
+	  b 		 Strictly lower triangular coefficient matrix, (n_vars, n_vars) numpy array
+				 NOTE: Each row of `b` corresponds to each variable, i.e., X = BX.
+	  s 		 Scales of disturbance variables, (n_vars, ) numpy array
+	  c 		 Means of observed variables, (n_vars,) numpy array
 
 	OUTPUT
-	  xs 			 matrix of all observations, (n_samples, n_vars) numpy array
-	  b_skeleton 	 permuted graph skeleton, (n_vars, n_vars) numpy array
+	  xs 		 matrix of all observations, (n_samples, n_vars) numpy array
+	  b_struc 	 permuted graph structure, (n_vars, n_vars) numpy array
 					 NOTE: 1 and 0 denotes the existence and non-existence of an edge, respectively
 	"""
 
@@ -52,11 +52,11 @@ def gen_data_given_model(b, s, c, n_samples=1000, random_state=4):
 	b_[:, :] = b_[:, p]
 	c_[:] = c[p]
 
-	b_skeleton = deepcopy(b_)
-	b_skeleton[ b_skeleton != 0 ] = 1
-	b_skeleton = b_skeleton.astype(int)
+	b_struc = deepcopy(b_)
+	b_struc[ b_struc != 0 ] = 1
+	b_struc = b_struc.astype(int)
 
-	return xs, b_skeleton
+	return xs, b_struc
 
 def gen_GCM(n_vars, n_edges, stds=1, biases=0):
 
