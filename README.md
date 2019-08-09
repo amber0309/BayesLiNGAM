@@ -41,7 +41,7 @@ Class `BayesLiNGAM()`
 | Argument  | Description  |
 |---|---|
 |X | matrix of all instances, (n_samples, n_vars) numpy array |
-|B | true causal graph skeleton, (n_vars, n_vars) numpy array |
+|B (optional) | true causal graph skeleton, (n_vars, n_vars) numpy array |
 
 After the initialization of `BayesLiNGAM()` object, use function `self.inference()` to estimate the causal graph.
 
