@@ -272,8 +272,18 @@ class BayesLiNGAM(object):
 		# compute the possibily of each dag
 		self.prob = np.exp( self.loglike - max(self.loglike) )
 		self.prob = self.prob / np.sum(self.prob)
-		print('The estimated probabilities of all DAGS are:')
-		print(self.prob)
+		# print('The estimated probabilities of all DAGS are:')
+		# print(self.prob)
+
+		if np.sum(np.isnan(self.prob)) == self.ndags:
+			# all dag scores are infinite
+			print('No valid DAG score! The results may be inaccurate!')
+			return False
+
+		print('The estimated skeleton is')
+		print(self.dags[ np.argmax(self.prob) ])
+		self.B_est = self.dags[ np.argmax(self.prob) ]
+		return True
 
 def loglikelihood2sufficient(params, sr, sr2, N):
 	"""

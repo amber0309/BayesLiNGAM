@@ -11,7 +11,7 @@ def gen_data_given_model(b, s, c, n_samples=1000, random_state=4):
 	  c 			 Means of observed variables, (n_vars,) numpy array
 
 	OUTPUT
-	  xs 			 matrix containing all observations, (n_samples, n_vars) numpy array
+	  xs 			 matrix of all observations, (n_samples, n_vars) numpy array
 	  b_skeleton 	 permuted graph skeleton, (n_vars, n_vars) numpy array
 					 NOTE: 1 and 0 denotes the existence and non-existence of an edge, respectively
 	"""
