@@ -6,7 +6,7 @@ Python code of causal discovery algorithm for causal graphs proposed in
 Hoyer, Patrik O., and Antti Hyttinen.  
 Proceedings of the Twenty-Fifth Conference on Uncertainty in Artificial Intelligence. AUAI Press, 2009.
 
-### Prerequisites
+## Prerequisites
 
 - NumPy
 - SciPy
@@ -22,8 +22,7 @@ After installing all required packages, you can run *demo.py* to see whether **B
 
 The test code does the following:
 
-1. it generates 1000 observations from a causal model with 2 variables;
-(Data is organized in an (1000, 2) *numpy array*.
+1. it generates 1000 observations (a (1000, 2) *numpy array*) from a causal model with 2 variables;
 2. BayesLiNGAM is applied on the generated data to infer the true causal graph.
 
 ## Apply **BayesLiNGAM** on your data
@@ -33,7 +32,6 @@ The test code does the following:
 ```python
 mdl = BayesLiNGAM(X, B)
 mdl.inference()
-
 ```
 
 ### Description
@@ -45,11 +43,11 @@ Class **BayesLiNGAM()**
 |X | matrix of all instances, (n_samples, n_vars) numpy array |
 |B | true causal graph skeleton, (n_vars, n_vars) numpy array |
 
-After the initialization of BayesLiNGAM object, use function **BayesLiNGAM().inference()** to estimate the causal graph.
+After the initialization of BayesLiNGAM object, use function **self.inference()** to estimate the causal graph.
 
 ## Author
 
-* **Shoubo Hu** - shoubo [dot] sub [at] gmail [dot] com
+- **Shoubo Hu** - shoubo [dot] sub [at] gmail [dot] com
 
 See also the list of [contributors](https://github.com/amber0309/Multidomain-Discriminant-Analysis/graphs/contributors) who participated in this project.
 
@@ -59,4 +57,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-* We appreciate the [CIDG](https://aaai.org/ocs/index.php/AAAI/AAAI18/paper/view/16595) [code](https://mingming-gong.github.io/papers/CIDG.zip) by Ya Li.
+- We appreciate the [CIDG](https://aaai.org/ocs/index.php/AAAI/AAAI18/paper/view/16595) [code](https://mingming-gong.github.io/papers/CIDG.zip) by Ya Li.
