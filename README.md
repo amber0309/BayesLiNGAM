@@ -4,13 +4,13 @@ Python code of causal discovery algorithm for causal graphs proposed in
 
 [Bayesian discovery of linear acyclic causal models](https://arxiv.org/abs/1205.2641)  
 Hoyer, Patrik O., and Antti Hyttinen.  
-Proceedings of the Twenty-Fifth Conference on Uncertainty in Artificial Intelligence. AUAI Press, 2009.
+Conference on Uncertainty in Artificial Intelligence (**UAI**) 2009.
 
 ## Prerequisites
 
-- NumPy
-- SciPy
-- scikit-learn
+- numpy
+- scipy
+- sklearn
 - itertools
 - copy
 
@@ -36,14 +36,14 @@ mdl.inference()
 
 ### Description
 
-Class **BayesLiNGAM()**
+Class `BayesLiNGAM()`
 
 | Argument  | Description  |
 |---|---|
 |X | matrix of all instances, (n_samples, n_vars) numpy array |
 |B | true causal graph skeleton, (n_vars, n_vars) numpy array |
 
-After the initialization of BayesLiNGAM object, use function **self.inference()** to estimate the causal graph.
+After the initialization of `BayesLiNGAM()` object, use function `self.inference()` to estimate the causal graph.
 
 ## Author
 
