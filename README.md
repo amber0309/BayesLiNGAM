@@ -14,7 +14,7 @@ Conference on Uncertainty in Artificial Intelligence (**UAI**) 2009.
 - itertools
 - copy
 
-We test the code using Anaconda 4.3.30 64-bit for python 2.7 on Windows 10. Any later version should still work perfectly.
+We test the code using Anaconda 5.3.0 64-bit for python 2.7.15 on Windows 10. Any later version should still work perfectly.
 
 ## Running the test
 
