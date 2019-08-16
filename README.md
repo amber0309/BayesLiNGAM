@@ -49,12 +49,8 @@ After the initialization of `BayesLiNGAM()` object, use function `self.inference
 
 - **Shoubo Hu** - shoubo [dot] sub [at] gmail [dot] com
 
-See also the list of [contributors](https://github.com/amber0309/Multidomain-Discriminant-Analysis/graphs/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/amber0309/BayesLiNGAM/graphs/contributors) who participated in this project.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- We appreciate the [CIDG](https://aaai.org/ocs/index.php/AAAI/AAAI18/paper/view/16595) [code](https://mingming-gong.github.io/papers/CIDG.zip) by Ya Li.
